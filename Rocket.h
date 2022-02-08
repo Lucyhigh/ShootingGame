@@ -9,7 +9,7 @@
 enum BULLETTYPE
 {
 	NORMAL,
-	SHOT,//클래스 무작정 늘리지말고 일단 변경해보고 클래스 만들기
+	SHOT,
 	MINIROCKET,
 	SHIELD,
 	GUIDED,
@@ -25,7 +25,8 @@ private :
 	Flame* _flame;
 
 	MissileM1* _missile;
-	//Missile*  _missileM1;
+	MissileM2* _missile2;
+	MissileM3* _missile3;
 
 public:
 	Rocket() {}

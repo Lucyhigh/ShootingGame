@@ -17,10 +17,12 @@ HRESULT Rocket::init(void)
 
 	_missile = new MissileM1;
 	_missile->init(ROCKET_BULLET, 700);
+	_missile2 = new MissileM2;
+	_missile2->init(8, 700);
+	_missile3 = new MissileM3;
+	_missile3->init(3, 700);
 	BULLETTYPE _bulletType;
 	_bulletType = NORMAL;
-	//_missileM1 = new MissileM1;
-	//_missileM1->init(1, 5.0f);
 
 	return S_OK;
 }
@@ -29,15 +31,21 @@ void Rocket::release(void)
 {
 	_flame->release();
 	_missile->release();
+	_missile2->release();
+	_missile3->release();
 	SAFE_DELETE(_flame);
 	SAFE_DELETE(_missile);
+	SAFE_DELETE(_missile2);
+	SAFE_DELETE(_missile3);
 }
 
 void Rocket::update(void)
 {
 	_flame->update();
 	_missile->update();
-
+	_missile2->update();
+	_missile3->update();
+	
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && _rc.right < WINSIZE_X)
 	{
 		_x += ROCKET_SPEED;
@@ -68,14 +76,19 @@ void Rocket::update(void)
 				_missile->fire(_x, _y);
 				break;
 			case 1:
+				_missile2->fire(_x, _y);
 				break;
 			case 2:
+				_missile3->fire(_x, _y);
 				break;
 			case 3:
+				_missile3->fire(_x, _y);
 				break;
 			case 4:
+				_missile3->fire(_x, _y);
 				break;
 			case 5:
+				_missile3->fire(_x, _y);
 				break;
 		}
 	}
@@ -111,4 +124,6 @@ void Rocket::render(void)
 	_image->render(getMemDC(), _rc.left, _rc.top);
 	_flame->render();
 	_missile->render();
+	_missile2->render();
+	_missile3->render();
 }

@@ -15,21 +15,22 @@ protected:
 	int _currentFrameX;
 	int _currentFrameY;
 	float _x, _y;
+	float _speed;
 	float _rndTimeCount;
 	float _worldTimeCount;
 
 
 public:
 	HRESULT init(void);
-	HRESULT init(const char* imageName, POINT position);
+	HRESULT init(const char* imageName, POINT position,float speed = 0.0f);
 	void release(void);
 	void update(void);
 	void render(void);
 
-	void move(void);
+	virtual void move(void);
 	void draw(void);
 	void animation(void);
 	Enemy(void);
-	~Enemy(void);
+	virtual ~Enemy(void);
 };
 

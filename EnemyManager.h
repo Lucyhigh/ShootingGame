@@ -1,7 +1,7 @@
 #pragma once
 #include "GameNode.h"
 #include "Enemy.h"
-#define PI 3.141592
+
 class EnemyManager:public GameNode
 {
 	//typedef c∞≈¿”..
@@ -30,6 +30,7 @@ public:
 
 	void setMinion(void);
 	void setMinion2(void);
+	void setMinion3(void);
 
 	EnemyManager() {}
 	~EnemyManager() {}

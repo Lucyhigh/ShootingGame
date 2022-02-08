@@ -14,18 +14,22 @@ HRESULT Enemy::init(void)
 	return S_OK;
 }
 
-HRESULT Enemy::init(const char * imageName, POINT position)
+HRESULT Enemy::init(const char * imageName, POINT position, float speed)
 {
 	_worldTimeCount = GetTickCount();
-	_rndTimeCount = RND->getFromFloatTo(50,150);
-
+	_rndTimeCount = RND->getFromFloatTo(50, 150);
 	_image = IMAGEMANAGER->findImage(imageName);
-	_rc = RectMakeCenter(position.x, position.y, _image->getFrameWidth(), _image->getFrameHeight());
+	_speed = speed;
+	_x = position.x;
+	_y = position.y;
+	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
+
 	return S_OK;
 }
 
 void Enemy::release(void)
 {
+	_image->release();
 }
 
 void Enemy::update(void)
@@ -45,6 +49,7 @@ void Enemy::render(void)
 // 적마다 움직임이 다르니 상속을 받아 자식에게 구현
 void Enemy::move(void)
 {
+	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
 }
 
 void Enemy::draw(void)

@@ -2,8 +2,26 @@
 #include "Enemy.h"
 class Minion :public Enemy
 {
-private:
 public:
+	virtual void move(void);
 	Minion();
-	~Minion();
+	virtual ~Minion();
+};
+
+class Minion2 :public Enemy
+{
+private:
+	int _reverse;
+public:
+	virtual void move(void);
+	Minion2();
+	virtual ~Minion2();
+};
+
+class Minion3 :public Enemy
+{
+public:
+	virtual void move(void);
+	Minion3();
+	virtual ~Minion3();
 };
