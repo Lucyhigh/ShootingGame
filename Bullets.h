@@ -15,7 +15,6 @@ struct tagBullet
 	int index;
 };
 
-
 // 배열처럼 미리 장전해두고 발사 
 class Missile : public GameNode
 {
@@ -25,17 +24,15 @@ private :
 
 	float _range;
 	float _bulletTick;
-	
-
 public:
 	HRESULT init(int bulletMax, float range);
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
+
 	//접근자 설정
 	vector<tagBullet> getBullet(void) { return _vBullet; }
 	//총알 삭제
@@ -58,10 +55,10 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
+
 	vector<tagBullet> getBullet(void) { return _vBullet; }
 	void removeBullet(int arrNum);
 public:
@@ -84,10 +81,10 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
+
 	vector<tagBullet> getBullet(void) { return _vBullet; }
 	void removeBullet(int arrNum);
 public:
@@ -105,15 +102,16 @@ private:
 	float _bulletTick;
 	int _bulletMax;
 	int _bulletIndex;
+
 public:
 	HRESULT init(int bulletMax, float range);
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
+
 	vector<tagBullet> getBullet(void) { return _vBullet; }
 	void removeBullet(int arrNum);
 public:
@@ -130,16 +128,15 @@ private:
 
 	float _range;
 	int _bulletMax;
-	
 public:
 	HRESULT init(int bulletMax, float range);
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
+
 	//접근자 설정
 	vector<tagBullet> getBullet(void) { return _vBullet; }
 public:

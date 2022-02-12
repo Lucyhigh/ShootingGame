@@ -91,7 +91,6 @@ void Rocket::update(void)
 		_y += ROCKET_SPEED;
 	}
 
-
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))//ÀÏ¹Ý
 	{
 		_setWeapon = MISSILE;
@@ -137,7 +136,7 @@ void Rocket::update(void)
 		if (KEYMANAGER->isStayKeyDown(VK_SPACE))
 		{
 			_beamIrradiation = true;
-			_beam->fire(_x, _y - 430);
+			_beam->fire(_x, _y);
 		}
 		else _beamIrradiation = false;
 		break;
@@ -147,14 +146,12 @@ void Rocket::update(void)
 void Rocket::render(void)
 {
 	_image->render(getMemDC(), _rc.left, _rc.top);
-
 	_flame->render();
 	_missile->render();
 	_shotgun->render();
 	_miniRocket->render();
 	_beam->render();
 	_hpBar->render();
-
 }
 
 void Rocket::removeMissile(int arrNum)

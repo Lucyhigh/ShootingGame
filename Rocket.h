@@ -39,6 +39,8 @@ public:
 	void removeMissile(int arrNum);
 
 	MissileM1* getMissile(void) { return _missile; }
+	MissileM2* getShotgun(void) { return _shotgun; }
+	MissileM3* getMiniRocket(void) { return _miniRocket; }
 	Beam* getBeam(void) { return _beam; }
 	//로켓이 맞는지 알려줄 렉트
 	RECT getRect(void) { return _rc; }
@@ -50,6 +52,7 @@ public:
 			_currentHp = 0;
 			return;
 		}
+		_currentHp -= damage;
 	}
 public:
 	Rocket() {}

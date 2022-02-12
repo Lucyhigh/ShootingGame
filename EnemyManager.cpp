@@ -71,7 +71,7 @@ void EnemyManager::setMinion(void)
 		Enemy* jellyFish;
 		jellyFish = new Minion3;
 
-		jellyFish->init("해파리", PointMake(_x, _y), i);
+		jellyFish->init("해파리", i);
 
 		_vMinion.push_back(jellyFish);
 	}

@@ -222,11 +222,11 @@ HRESULT MissileM2::init(int bulletMax, float range)
 
 void MissileM2::release(void)
 {
-	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	_viBullet = _vBullet.begin();
+	for (; _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		SAFE_DELETE(_viBullet->img);
 	}
-
 	_vBullet.clear();
 }
 
@@ -240,10 +240,10 @@ void MissileM2::render(void)
 	draw();
 }
 
-
 void MissileM2::fire(float x, float y)
 {
-	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	_viBullet = _vBullet.begin();
+	for (; _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		if (_viBullet->fire) continue;
 		_viBullet->fire = true;
@@ -294,6 +294,7 @@ void MissileM2::draw(void)
 		_viBullet->img->frameRender(getMemDC(), _viBullet->x, _viBullet->y);
 	}
 }
+
 void MissileM2::removeBullet(int arrNum)
 {
 	SAFE_DELETE(_vBullet[arrNum].img);
@@ -513,26 +514,28 @@ void Beam::render(void)
 
 void Beam::fire(float x, float y)
 {
-	//최대 발사갯수를 막는다.
 	if (_bulletMax <= _vBullet.size()) return;
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 
 	bullet.img = new Image;
-	bullet.img->init("Resources/Images/Object/Beam.bmp", 0.0f, 0.0f, 412, 801, 4, 1, true, RGB(255, 0, 255));
+	bullet.img->init("Resources/Images/Object/Beam.bmp",
+		0.0f, 0.0f, 412, 801, 4, 1, true, RGB(255, 0, 255));
 
-	bullet.fire = false;//있어야하나
+	bullet.fire = false;
 	bullet.speed = 0.1f;
 	bullet.x = bullet.fireX = x;
-	bullet.y = bullet.fireY = y - 70;
-	bullet.rc = RectMakeCenter(bullet.x, bullet.y, bullet.img->getFrameWidth(), bullet.img->getFrameHeight());
+	bullet.y = bullet.fireY = y - 440;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y, 
+		bullet.img->getFrameWidth(), bullet.img->getFrameHeight());
 
 	_vBullet.push_back(bullet);
 }
 
 void Beam::move(void)
 {
-	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	_viBullet = _vBullet.begin();
+	for (; _viBullet != _vBullet.end();)
 	{
 		// 위치 옮기기
 		_viBullet->y -= _viBullet->speed;
@@ -553,7 +556,8 @@ void Beam::move(void)
 
 void Beam::draw(void)
 {
-	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	_viBullet = _vBullet.begin();
+	for (; _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		_viBullet->img->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
 

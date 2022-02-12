@@ -17,15 +17,6 @@ HRESULT Enemy::init(void)
 	return S_OK;
 }
 
-HRESULT Enemy::init(const char * imageName, POINT position)
-{
-	init(imageName, position, 0.0f);
-}
-HRESULT Enemy::init(const char * imageName, float speed)
-{
-	init(imageName, PointMake(0, 0), speed);
-}
-
 HRESULT Enemy::init(const char * imageName, POINT position, float speed)
 {
 	_worldTimeCount = GetTickCount();
@@ -40,6 +31,17 @@ HRESULT Enemy::init(const char * imageName, POINT position, float speed)
 	_speed = speed;
 	_minionHpBar = new ProgressBar;
 	_minionHpBar->init(_x, _y, 52, 4);
+	return S_OK;
+}
+
+HRESULT Enemy::init(const char * imageName, POINT position)
+{
+	init(imageName, position, 0.0f);
+	return S_OK;
+}
+HRESULT Enemy::init(const char * imageName, float speed)
+{
+	init(imageName, PointMake(0, 0), speed);
 	return S_OK;
 }
 
