@@ -64,11 +64,17 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>API\ProgressBar</Filter>
     </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>API\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>API\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>API\ExamClass\ShootingGame\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>API\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,15 @@
     <ClInclude Include="TimeManager.h">
       <Filter>API\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>API\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>API\ExamClass\ShootingGame\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>API\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -187,6 +202,12 @@
     </Filter>
     <Filter Include="API\ProgressBar">
       <UniqueIdentifier>{905cfd2d-6e67-4e37-945e-a6de492133cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\ExamClass\ShootingGame\Effect">
+      <UniqueIdentifier>{fef2bdf2-5096-404f-a32c-266c5ce7b7c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Collision">
+      <UniqueIdentifier>{539b56cb-5219-4826-9f45-76c620478a53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

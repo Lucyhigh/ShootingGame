@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Flame.cpp" />
@@ -179,7 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="CommonMacroFunction.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Flame.h" />

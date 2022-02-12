@@ -37,7 +37,6 @@ public:
 	virtual void move(void);
 	void draw(void);
 	void animation(void);
-
 	inline void hitDamage(float damage)
 	{
 		if (_currentHp <= 0)

@@ -287,7 +287,6 @@ void MissileM2::move(void)
 
 void MissileM2::draw(void)
 {
-	cout << _vBullet.size() << endl;
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		if (!_viBullet->fire)continue;
@@ -385,7 +384,6 @@ void MissileM3::move(void)
 
 void MissileM3::draw(void)
 {
-	cout << _vBullet.size() << endl;
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		if (!_viBullet->fire)continue;

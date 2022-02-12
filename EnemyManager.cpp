@@ -12,7 +12,8 @@ HRESULT EnemyManager::init(void)
 
 void EnemyManager::release(void)
 {
-	for (_viMinion = _vMinion.begin(); _viMinion != _vMinion.end(); ++_viMinion)
+	_viMinion = _vMinion.begin();
+	for (; _viMinion != _vMinion.end(); ++_viMinion)
 	{
 		(*_viMinion)->release();
 		SAFE_DELETE(*_viMinion);
@@ -21,7 +22,8 @@ void EnemyManager::release(void)
 
 void EnemyManager::update(void)
 {
-	for(_viMinion = _vMinion.begin();_viMinion != _vMinion.end(); ++_viMinion)
+	_viMinion = _vMinion.begin();
+	for(;_viMinion != _vMinion.end(); ++_viMinion)
 	{
 		(*_viMinion)->update();
 	}
@@ -34,11 +36,6 @@ void EnemyManager::render(void)
 	{
 		(*_viMinion)->render();
 	}
-}
-
-vector<Enemy*>& EnemyManager::getEnemies()
-{
-	return _vMinion;
 }
 
 void EnemyManager::setMinion(void)
@@ -79,6 +76,7 @@ void EnemyManager::setMinion(void)
 
 void EnemyManager::removeMinion(int arrNum)
 {
+
 	SAFE_DELETE(_vMinion[arrNum]);
 	_vMinion.erase(_vMinion.begin()+arrNum);
 }
