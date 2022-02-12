@@ -2,7 +2,7 @@
 #include "GameNode.h"
 #include "Enemy.h"
 
-class EnemyManager:public GameNode
+class EnemyManager : public GameNode
 {
 	//typedef c거임..
 	//typedef vector<Enemy***> vEnemy;이 제일 좋음
@@ -19,19 +19,23 @@ private:
 	typedef vector<Enemy*>::iterator viEnemy;
 
 private:
-	vEnemy _vMiniom;
-	viEnemy _viMiniom;
-
+	vEnemy _vMinion;
+	viEnemy _viMinion;
+	ProgressBar* _minionHpBar;
+	float _x, _y;
 public:
+	vector<Enemy*>& getEnemies();
+
 	HRESULT init(void);
 	void release(void);
 	void update(void);
 	void render(void);
-
 	void setMinion(void);
-	void setMinion2(void);
-	void setMinion3(void);
-
+	void removeMinion(int arrNum);
+	//참조를 통해 벡터만듬
+	//로켓이 어떠한 대상과 만나는지 알수없으면 알수없음
+	vector<Enemy*> getMinion(void) { return _vMinion; }
+public:
 	EnemyManager() {}
 	~EnemyManager() {}
 };

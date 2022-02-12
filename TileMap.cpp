@@ -11,7 +11,7 @@ HRESULT TileMap::init(void)
 		ZeroMemory(&tile, sizeof(tagTile));
 
 		tile.img = new Image;
-		tile.img->init("Resources/Images/Object/Tile01.bmp",0,0, 100, 100, true, MGT);
+		tile.img->init("Resources/Images/Object/Tile01.bmp",0,0, 100, 100, true, RGB(255, 0, 255));
 		tile.rc = RectMake(100,100,100,100);
 		tile.onTile = true;
 		tile.x = 0; tile.y = 0;

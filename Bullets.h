@@ -16,7 +16,7 @@ struct tagBullet
 };
 
 
-// 베열처럼 미리 장전해두고 발사 
+// 배열처럼 미리 장전해두고 발사 
 class Missile : public GameNode
 {
 private :
@@ -24,8 +24,8 @@ private :
 	vector<tagBullet>::iterator _viBullet;
 
 	float _range;
-	
 	float _bulletTick;
+	
 
 public:
 	HRESULT init(int bulletMax, float range);
@@ -33,11 +33,14 @@ public:
 	void update(void);
 	void render(void);
 
-
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
-
+	//접근자 설정
+	vector<tagBullet> getBullet(void) { return _vBullet; }
+	//총알 삭제
+	void removeBullet(int arrNum);
+public:
 	Missile() {};
 	~Missile() {};
 };
@@ -49,7 +52,6 @@ class MissileM1 :public GameNode
 	vector<tagBullet>::iterator _viBullet;
 
 	float _range;
-	float _bulletTick;
 	int _bulletMax;
 public:
 	HRESULT init(int bulletMax, float range);
@@ -60,7 +62,9 @@ public:
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
-
+	vector<tagBullet> getBullet(void) { return _vBullet; }
+	void removeBullet(int arrNum);
+public:
 	MissileM1() {};
 	~MissileM1() {};
 };
@@ -84,7 +88,9 @@ public:
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
-
+	vector<tagBullet> getBullet(void) { return _vBullet; }
+	void removeBullet(int arrNum);
+public:
 	MissileM2() {};
 	~MissileM2() {};
 };
@@ -108,29 +114,36 @@ public:
 	void fire(float x, float y);
 	void move(void);
 	void draw(void);
-
+	vector<tagBullet> getBullet(void) { return _vBullet; }
+	void removeBullet(int arrNum);
+public:
 	MissileM3() {};
 	~MissileM3() {};
 };
-class MissileM4 : public GameNode
+
+class Beam : public GameNode
 {
 private:
 	vector<tagBullet> _vBullet;
 	vector<tagBullet>::iterator _viBullet;
+	typedef vector<tagBullet>::iterator iterBullet;
 
 	float _range;
-	float _bulletTick;
 	int _bulletMax;
-	int _bulletIndex;
+	
 public:
-	HRESULT init(int count, float range);
+	HRESULT init(int bulletMax, float range);
 	void release(void);
 	void update(void);
 	void render(void);
 
-	void shield(float x, float y);
+	void fire(float x, float y);
+	void move(void);
 	void draw(void);
-
-	MissileM4(){};
-	~MissileM4(){};
+	//접근자 설정
+	vector<tagBullet> getBullet(void) { return _vBullet; }
+public:
+	Beam() {};
+	~Beam() {};
 };
+

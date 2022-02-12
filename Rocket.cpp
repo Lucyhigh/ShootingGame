@@ -5,7 +5,7 @@
 HRESULT Rocket::init(void)
 {
 	_image = IMAGEMANAGER->addImage("로켓", "Resources/Images/Object/Rocket.bmp",
-		52, 62, true, MGT);
+		52, 62, true, RGB(255, 0, 255));
 
 	_x = CENTER_X;
 	_y = WINSIZE_Y-100;
@@ -17,12 +17,19 @@ HRESULT Rocket::init(void)
 
 	_missile = new MissileM1;
 	_missile->init(ROCKET_BULLET, 700);
-	_missile2 = new MissileM2;
-	_missile2->init(8, 700);
-	_missile3 = new MissileM3;
-	_missile3->init(3, 700);
-	BULLETTYPE _bulletType;
-	_bulletType = NORMAL;
+	_shotgun = new MissileM2;
+	_shotgun->init(8, 700);
+	_miniRocket = new MissileM3;
+	_miniRocket->init(3, 700);
+	_beam = new Beam;
+	_beam->init(1, 1.0f);
+
+	_setWeapon = MISSILE;
+	_currentHp = 10;
+	_maxHp = 10;
+	_hpBar = new ProgressBar;
+	_hpBar->init(_x,_y,52,4);
+	_beamIrradiation = false;
 
 	return S_OK;
 }
@@ -30,28 +37,46 @@ HRESULT Rocket::init(void)
 void Rocket::release(void)
 {
 	_flame->release();
-	_missile->release();
-	_missile2->release();
-	_missile3->release();
 	SAFE_DELETE(_flame);
+
+	_missile->release();
 	SAFE_DELETE(_missile);
-	SAFE_DELETE(_missile2);
-	SAFE_DELETE(_missile3);
+
+	_shotgun->release();
+	SAFE_DELETE(_shotgun);
+
+	_miniRocket->release();
+	SAFE_DELETE(_miniRocket);
+
+	_beam->release();
+	SAFE_DELETE(_beam);
+
+	_hpBar->release();
+	SAFE_DELETE(_hpBar);
 }
 
 void Rocket::update(void)
 {
 	_flame->update();
 	_missile->update();
-	_missile2->update();
-	_missile3->update();
-	
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && _rc.right < WINSIZE_X)
+	_shotgun->update();
+	_miniRocket->update();
+	_beam->update();
+	_rc = RectMakeCenter(_x, _y, _image->getWidth(), _image->getHeight());
+	_hpBar->setX(_x - (_rc.right - _rc.left) / 2);
+	_hpBar->setY(_y - 10 - (_rc.bottom - _rc.top) / 2);
+	_hpBar->update();
+	_hpBar->setGauge(_currentHp, _maxHp);
+
+	if (KEYMANAGER->isOnceKeyDown('1')) hitDamage(1.0f);
+	if (KEYMANAGER->isOnceKeyDown('2')) hitDamage(-1.0f);
+
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && _rc.right < WINSIZE_X && _beamIrradiation ==false)
 	{
 		_x += ROCKET_SPEED;
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _rc.left > 0)
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _rc.left > 0 && _beamIrradiation == false)
 	{
 		_x -= ROCKET_SPEED;
 	}
@@ -66,64 +91,73 @@ void Rocket::update(void)
 		_y += ROCKET_SPEED;
 	}
 
-	_rc = RectMakeCenter(_x, _y, _image->getWidth(), _image->getHeight());
 
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		switch (_bulletType)
-		{
-			case 0:
-				_missile->fire(_x, _y);
-				break;
-			case 1:
-				_missile2->fire(_x, _y);
-				break;
-			case 2:
-				_missile3->fire(_x, _y);
-				break;
-			case 3:
-				_missile3->fire(_x, _y);
-				break;
-			case 4:
-				_missile3->fire(_x, _y);
-				break;
-			case 5:
-				_missile3->fire(_x, _y);
-				break;
-		}
-	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))//일반
 	{
-		_bulletType = 0;
+		_setWeapon = MISSILE;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F2))//산탄
 	{
-		_bulletType = 1;
+		_setWeapon = SHOT;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F3))//미니로켓 생성
 	{
-		_bulletType = 2;
+		_setWeapon = MINIROCKET;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F4))//쉴드
+	if (KEYMANAGER->isOnceKeyDown(VK_F4))//레이저
 	{
-		_bulletType = 3;
+		_setWeapon = BEAM;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F5))//유도 미사일
+	if (KEYMANAGER->isOnceKeyDown(VK_F5))//레이저2
 	{
-		_bulletType = 4;
+		_setWeapon = BEAM;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F6))//레이저
+
+	switch (_setWeapon)
 	{
-		_bulletType = 5;
-	}
+	case MISSILE:
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		{
+			_missile->fire(_x, _y);
+		}
+		break;
+	case SHOT:
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		{
+			_shotgun->fire(_x, _y);
+		}
+		break;
+	case MINIROCKET:
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		{
+			_miniRocket->fire(_x, _y);
+		}
+		break;
+	case BEAM:
+		if (KEYMANAGER->isStayKeyDown(VK_SPACE))
+		{
+			_beamIrradiation = true;
+			_beam->fire(_x, _y - 430);
+		}
+		else _beamIrradiation = false;
+		break;
+	}	
 }
 
 void Rocket::render(void)
 {
-	cout << _bulletType << endl;
 	_image->render(getMemDC(), _rc.left, _rc.top);
+
 	_flame->render();
 	_missile->render();
-	_missile2->render();
-	_missile3->render();
+	_shotgun->render();
+	_miniRocket->render();
+	_beam->render();
+	_hpBar->render();
+
+}
+
+void Rocket::removeMissile(int arrNum)
+{
+	_missile->removeBullet(arrNum);
 }

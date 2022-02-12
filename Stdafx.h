@@ -11,7 +11,11 @@
 #include <Windows.h>
 
 // 디버깅용 콘솔창
-#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+//!라이브러리
+//#pragma comment(linker,"/entry:WinMainCRTStartup /subsystem:console")
+#pragma comment(lib,"Winmm.lib")
+// 알파 블렌드를 사용하기 위한 라이브러리 추가 
+#pragma comment (lib,"msimg32.lib")
 
 //! C 런타임 헤더 파일
 #include <stdlib.h>
@@ -20,6 +24,14 @@
 #include <tchar.h>
 #include <time.h>
 
+// 윈도우 내장 재생 라이브러리 
+// PlaySound()를 사용하기 위해 
+#include <mmsystem.h>
+
+// Media Control Interface(장치관리자) API 
+// mciSendString()을 사용하기 위해 
+#include <mciapi.h>
+
 //! C++ 런타임 헤더 파일
 #include <iostream>
 #include <random>
@@ -27,7 +39,9 @@
 #include <vector>
 #include <map>
 #include <cassert>
-
+#include <algorithm>
+// bind 함수 기능 묶어주는
+#include <functional>
 using namespace std;
 
 //===================================
@@ -40,7 +54,7 @@ using namespace std;
 #include "FontManager.h"
 #include "TempSoundManager.h"
 #include "Utils.h"
-
+#include "TimeManager.h"
 using namespace MY_UTIL;
 
 //========================
@@ -51,14 +65,12 @@ using namespace MY_UTIL;
 #define IMAGEMANAGER ImageManager::getSingleton()
 #define FONTMANAGER FontManager::getSingleton()
 #define TEMPSOUNDMANAGER TempSoundManager::getSingleton()
-
+#define TIMEMANAGER TimeManager::getSingleton()
 
 //============================
 // # 매크로 # (윈도우창 초기화)
 //============================
 #define WINNAME		 (LPTSTR)(TEXT("WindowsAPI"))
-
-#define MGT RGB(255,0,255)
 
 //#define FULLSCREEN
 

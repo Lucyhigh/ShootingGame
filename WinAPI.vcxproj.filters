@@ -58,6 +58,18 @@
     <ClCompile Include="Minion.cpp">
       <Filter>API\ExamClass\ShootingGame\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>API\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBar.cpp">
+      <Filter>API\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>API\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameNode.h">
@@ -123,6 +135,15 @@
     <ClInclude Include="Minion.h">
       <Filter>API\ExamClass\ShootingGame\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>API\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressBar.h">
+      <Filter>API\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>API\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -160,6 +181,12 @@
     </Filter>
     <Filter Include="API\ExamClass\ShootingGame\Enemy">
       <UniqueIdentifier>{e41ec2b4-efce-4d15-b917-39c0635f522b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\Timer">
+      <UniqueIdentifier>{b94c673f-b8d9-40cd-bbbb-5d108b009938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\ProgressBar">
+      <UniqueIdentifier>{905cfd2d-6e67-4e37-945e-a6de492133cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

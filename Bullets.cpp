@@ -13,7 +13,7 @@ HRESULT Missile::init(int bulletMax, float range)
 
 		bullet.img = new Image;
 		bullet.img->init("Resources/Images/Object/Missile.bmp", 0.0f, 0.0f,
-			416, 64, 13, 1, true, MGT);
+			416, 64, 13, 1, true, RGB(255,0,255));
 		bullet.fire = false;
 		bullet.speed = 5.0f;
 		_vBullet.push_back(bullet);
@@ -48,6 +48,7 @@ void Missile::fire(float x, float y)
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		if (_viBullet->fire) continue;
+		// 디폴트는 일반 미사일 + 기본위치 
 		_viBullet->fire = true;
 		_viBullet->x = _viBullet->fireX = x - 15;
 		_viBullet->y = _viBullet->fireY = y - 90;
@@ -66,6 +67,12 @@ void Missile::draw(void)
 		if (!_viBullet->fire)continue;
 		_viBullet->img->frameRender(getMemDC(), _viBullet->x, _viBullet->y);
 	}
+}
+
+void Missile::removeBullet(int arrNum)
+{
+	SAFE_DELETE(_vBullet[arrNum].img);
+	_vBullet.erase(_vBullet.begin() + arrNum);
 }
 
 void Missile::move(void)
@@ -126,10 +133,10 @@ void MissileM1::render(void)
 {
 	draw();
 }
-
 void MissileM1::fire(float x, float y)
 {
 	if (_bulletMax <= _vBullet.size()) return;
+
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 
@@ -171,7 +178,6 @@ void MissileM1::draw(void)
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		_viBullet->img->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
-
 		_viBullet->count++;
 		if (_viBullet->count % 3 == 0)
 		{
@@ -183,6 +189,12 @@ void MissileM1::draw(void)
 			_viBullet->count = 0;
 		}
 	}
+}
+
+void MissileM1::removeBullet(int arrNum)
+{
+	SAFE_DELETE(_vBullet[arrNum].img);
+	_vBullet.erase(_vBullet.begin() + arrNum);
 }
 
 // 미사일 M2 ------------------------------------------------------------------------------
@@ -198,7 +210,7 @@ HRESULT MissileM2::init(int bulletMax, float range)
 
 		bullet.img = new Image;
 		bullet.img->init("Resources/Images/Object/Missile.bmp", 0.0f, 0.0f,
-			416, 64, 13, 1, true, MGT);
+			416, 64, 13, 1, true, RGB(255, 0, 255));
 		bullet.fire = false;
 		bullet.speed = 5.0f;
 		bullet.index = i;
@@ -227,6 +239,7 @@ void MissileM2::render(void)
 {
 	draw();
 }
+
 
 void MissileM2::fire(float x, float y)
 {
@@ -281,6 +294,11 @@ void MissileM2::draw(void)
 		_viBullet->img->frameRender(getMemDC(), _viBullet->x, _viBullet->y);
 	}
 }
+void MissileM2::removeBullet(int arrNum)
+{
+	SAFE_DELETE(_vBullet[arrNum].img);
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
 //============================================================================================mini
 HRESULT MissileM3::init(int bulletMax, float range)
 {
@@ -294,7 +312,7 @@ HRESULT MissileM3::init(int bulletMax, float range)
 
 		bullet.img = new Image;
 		bullet.img->init("Resources/Images/Object/Missile.bmp", 0.0f, 0.0f,
-			416/2, 64/2, 13, 1, true, MGT);
+			416/2, 64/2, 13, 1, true, RGB(255, 0, 255));
 		bullet.fire = false;
 		bullet.speed = 10.0f;
 		bullet.index = i;
@@ -373,63 +391,181 @@ void MissileM3::draw(void)
 		_viBullet->img->frameRender(getMemDC(), _viBullet->x, _viBullet->y);
 	}
 }
+void MissileM3::removeBullet(int arrNum)
+{
+	SAFE_DELETE(_vBullet[arrNum].img);
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
 //============================================================================================
 
-HRESULT MissileM4::init(int count, float range)
+HRESULT Beam::init(int bulletMax, float range)
 {
+	_range = range;
+	_bulletMax = bulletMax;
+	return S_OK;
+}
+//void Beam::release(void)
+//{
+//	//1
+//	for (_viBullet = _vBullet.begin(); _viBullet < _vBullet.end(); ++_viBullet)
+//	{
+//		SAFE_DELETE(_viBullet->img);
+//	}
+//
+//	//2
+//	_viBullet = _vBullet.begin();
+//	for (; _viBullet < _vBullet.end(); ++_viBullet)
+//	{
+//		SAFE_DELETE(_viBullet->img);
+//	}
+//
+//	//3 --->> 팀플에서 추천
+//	iterBullet iterBullet = _vBullet.begin();
+//	for (; iterBullet != _vBullet.end(); ++iterBullet)
+//	{
+//		SAFE_DELETE(_viBullet->img);
+//	}
+//
+//	//4 --->> 팀플에서는 왠만하면 지향해라
+//	for (auto iter = _vBullet.begin(); iter != _vBullet.end(); ++iter)
+//	{
+//		SAFE_DELETE(iter->img);
+//	}
+//
+//	//5 ~~ 8 람다식 (알아두면 좋지만 우리가 굳이 쓸 필요는 없다. 하지만 어필용으로는 좋다)
+//	for (auto iter : _vBullet)
+//	{
+//		SAFE_DELETE(iter.img);
+//	}
+//
+//	//6
+//	for each(auto iter in _vBullet)
+//	{
+//		SAFE_DELETE(iter.img)
+//	}
+//
+//	//7 ---->>>> 반복자의 시작과 끝, 그리고 함수를 인자로 받는다
+//	for_each(_vBullet.begin(), _vBullet.end(), update);
+//
+//	//8
+//	int Value = 0;  //----> 캡처용 변수
+//	for_each(_vBullet.begin(), _vBullet.end(), [&Value](auto& number) {Value += number; });
+//	//ㄴ 이게 람다다....
+//
+//	/*
+//	- 람다
+//	-> [] () {} ()
+//	=== [캡처] (매개변수) {(변환) 함수 동작} (호출 인자(생략 가능))
+//
+//	*/
+//
+//	int numberA = 10;
+//	int numberB = 10;
+//
+//	auto resultA = [](int numA, int numB) {return numA + numB; } (10, 10);
+//	auto resultB = [&]()->int {return numberA + numberB; } ();
+//	auto resultC = [=, &numberA]()->int {return numberA + numberB; } ();
+//	// ---> 람다에서 가장 많이 쓰이는 세 가지 방식
+//
+//	/*
+//	[] : 같은 영역에 있는 모든 변수에 접근 불가하다
+//	[&] : 같은 영역에 있는 모든 변수를 참조로 캡처
+//	[=] : 같은 영역에 있는 모든 변수를 값으로 캡처
+//	[&, 변수] : 같은 영역에 있는 모든 참조로 캡처하되 들어간 인자의 변수 값으로 캡처
+//	[=, &변수] : 같은 영역에 있는 모든 참조로 캡처하되 들어간 인자의 참조 캡처
+//
+//	*/
+//
+//	//8. 반복자를 이용한 반복문 (결과를 다른 컨테이너에 저장하고 원본 컨테이너에도 가능)
+//
+//	// 스마트 포인터(공부)
+//	vector<int> vBulletReload;
+//	transform(_vBullet.begin(), _vBullet.end(), vBulletReload.begin(), update);
+//	transform(_vBullet.begin(), _vBullet.end(), vBulletReload.begin(),
+//		[](__int64 numA)-> auto { return numA; });
+//	//ㄴ람다가 무조건 엮인다
+//
+//	_vBullet.clear();
+//}
+
+void Beam::release(void)
+{
+	//3 제일 좋은 팀 작업 방법
+	// 이터레이터 명시 
+	//기능적으로 차이는 없지만 가독성이좋다 한 줄이 길면 잘 안보인다
+	_viBullet = _vBullet.begin();
+	for (; _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		SAFE_DELETE(_viBullet->img);
+	}
+	_vBullet.clear();
+}
+
+void Beam::update(void)
+{
+	move();
+}
+
+void Beam::render(void)
+{
+	draw();
+}
+
+void Beam::fire(float x, float y)
+{
+	//최대 발사갯수를 막는다.
+	if (_bulletMax <= _vBullet.size()) return;
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 
 	bullet.img = new Image;
-	bullet.img->init = IMAGEMANAGER->addImage("부스터", "Resources/Images/Object/Rocket.bmp",52*2, 62*2, true, RGB(255, 0, 255));
+	bullet.img->init("Resources/Images/Object/Beam.bmp", 0.0f, 0.0f, 412, 801, 4, 1, true, RGB(255, 0, 255));
 
+	bullet.fire = false;//있어야하나
+	bullet.speed = 0.1f;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y - 70;
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y, bullet.img->getFrameWidth(), bullet.img->getFrameHeight());
 
-	_bulletTick = 7.0f;
-	//_count = _index = 0;
-	return S_OK;
+	_vBullet.push_back(bullet);
 }
 
-void MissileM4::release(void)
+void Beam::move(void)
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
+	{
+		// 위치 옮기기
+		_viBullet->y -= _viBullet->speed;
+
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
+			_viBullet->img->getFrameWidth(), _viBullet->img->getFrameHeight());
+
+		//사거리 밖으로 나갔음
+		if (_range < getDistance(_viBullet->fireX, _viBullet->fireY,
+			_viBullet->x, _viBullet->y))
+		{
+			SAFE_DELETE(_viBullet->img);
+			_viBullet = _vBullet.erase(_viBullet);
+		}
+		else ++_viBullet;
+	}
+}
+
+void Beam::draw(void)
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		SAFE_DELETE(_viBullet->img);
-	}
+		_viBullet->img->frameRender(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
 
-	_vBullet.clear();
-}
-
-void MissileM4::update(void)
-{
-
-}
-
-void MissileM4::render(void)
-{
-	draw();
-
-}
-
-void MissileM4::shield(float x, float y)
-{
-
-	_x = x;
-	_y = y;
-
-	_rc = RectMakeCenter((int)_x, (int)_y, _img->getFrameWidth(), _img->getFrameHeight());
-}
-
-void MissileM4::draw(void)
-{
-	/*if (_bulletTick <= GetTickCount())
-	{
-		_bulletTick = GetTickCount();
-		_img->setFrameX(_img->getFrameX() + 1);
-		if (_img->getFrameX() >= _img->getMaxFrameX())
+		_viBullet->count++;
+		if (_viBullet->count % 5 == 0)
 		{
-			_img->setFrameX(0);
+			_viBullet->img->setFrameX(_viBullet->img->getFrameX() + 1);
+			if (_viBullet->img->getFrameX() >= _viBullet->img->getMaxFrameX())
+			{
+				_viBullet->img->setFrameX(0);
+			}
+			_viBullet->count = 0;
 		}
 	}
-	_rc = RectMakeCenter(*_x, *_y + 180, _img->getFrameWidth(), _img->getFrameHeight());
-	IMAGEMANAGER->frameRender("부스터", getMemDC(), _rc.left, _rc.top, _img->getFrameX(), _img->getFrameY());*/
 }

@@ -2,58 +2,57 @@
 #include "GameNode.h"
 #include "Flame.h"
 #include "Bullets.h"
-
+#include "ProgressBar.h"
 
 #define ROCKET_SPEED 3.0f
 #define ROCKET_BULLET 30
-enum BULLETTYPE
+enum EWeapon
 {
-	NORMAL,
+	MISSILE,
 	SHOT,
 	MINIROCKET,
-	SHIELD,
-	GUIDED,
-	LASER
+	BEAM
 };
 class Rocket : public  GameNode
 {
 private :
 	Image* _image;
 	RECT _rc;
-	float _x, _y;
-	int _bulletType;
 	Flame* _flame;
-
 	MissileM1* _missile;
-	MissileM2* _missile2;
-	MissileM3* _missile3;
+	MissileM2* _shotgun;
+	MissileM3* _miniRocket;
+	Beam* _beam;
+	EWeapon _setWeapon;
+	ProgressBar* _hpBar;
+
+	float _x, _y;
+	float _currentHp;
+	float _maxHp;
+	bool _beamIrradiation;
 
 public:
-	Rocket() {}
-	~Rocket() {}
-
 	HRESULT init(void);
 	void release(void);
 	void update(void);
 	void render(void);
+	void removeMissile(int arrNum);
 
-	float getFlameX() 
-	{ return IMAGEMANAGER->findImage("부스터")->getX(); }
+	MissileM1* getMissile(void) { return _missile; }
+	Beam* getBeam(void) { return _beam; }
+	//로켓이 맞는지 알려줄 렉트
+	RECT getRect(void) { return _rc; }
 
-	void setFlameX(float _x) 
+	inline void hitDamage(float damage)
 	{
-		IMAGEMANAGER->findImage("부스터")->setX(_x);
+		if (_currentHp <= 0)
+		{
+			_currentHp = 0;
+			return;
+		}
 	}
-
-	float getFlameY()
-	{
-		return IMAGEMANAGER->findImage("부스터")->getY();
-	}
-
-	void setFlameY(float _y)
-	{
-		IMAGEMANAGER->findImage("부스터")->setY(_y);
-	}
-
+public:
+	Rocket() {}
+	~Rocket() {}
 };
 

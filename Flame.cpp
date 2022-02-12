@@ -10,7 +10,7 @@ Flame::~Flame(){
 HRESULT Flame::init(const char*fileName, float* x, float* y)
 {
 	_img = IMAGEMANAGER->addFrameImage("∫ŒΩ∫≈Õ", "Resources/Images/Object/Flame.bmp",
-		0.0f, 0.0f, 432, 297, 9, 1, true, MGT);
+		0.0f, 0.0f, 432, 297, 9, 1, true, RGB(255, 0, 255));
 
 	_x = x;
 	_y = y;

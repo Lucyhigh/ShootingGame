@@ -1,7 +1,5 @@
 #include "Stdafx.h"
 #include "MainGame.h"
-#include "ImageClass.h"
-
 
 HRESULT MainGame::init(void)
 {
@@ -33,16 +31,17 @@ void MainGame::update(void)
 
 	_rocket->update();
 	_em->update();
+	collision();
 }
 
 void MainGame::render(void)
 {
 	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
-	
+
 	IMAGEMANAGER->render("½´ÆÃ ¸Ê", getMemDC());
 	_rocket->render();
 	_em->render();
-	
+	TIMEMANAGER->render(getMemDC());
 	this->getBackBuffer()->render(getHDC());
 }
 
