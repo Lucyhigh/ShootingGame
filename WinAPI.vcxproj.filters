@@ -64,17 +64,26 @@
     <ClCompile Include="ProgressBar.cpp">
       <Filter>API\ProgressBar</Filter>
     </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>API\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>API\Manager</Filter>
+    <ClCompile Include="AniTestScene.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>API\ExamClass\ShootingGame\Effect</Filter>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>API\Collision</Filter>
+    <ClCompile Include="ShootingEffect.cpp">
+      <Filter>API\ExamClass\ShootingEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondScene.cpp">
+      <Filter>API\ExamClass\ShootingGame\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>API\ExamClass\ShootingGame\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,14 +159,20 @@
     <ClInclude Include="TimeManager.h">
       <Filter>API\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>API\Manager</Filter>
+    <ClInclude Include="Animation.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>API\ExamClass\ShootingGame\Effect</Filter>
+    <ClInclude Include="AniTestScene.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>API\Collision</Filter>
+    <ClInclude Include="ShootingEffect.h">
+      <Filter>API\ExamClass\ShootingEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondScene.h">
+      <Filter>API\ExamClass\ShootingGame\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>API\ExamClass\ShootingGame\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -203,11 +218,14 @@
     <Filter Include="API\ProgressBar">
       <UniqueIdentifier>{905cfd2d-6e67-4e37-945e-a6de492133cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\ExamClass\ShootingGame\Effect">
-      <UniqueIdentifier>{fef2bdf2-5096-404f-a32c-266c5ce7b7c0}</UniqueIdentifier>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{3248fe14-aa4d-4119-9af6-8a6f638706b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\Collision">
-      <UniqueIdentifier>{539b56cb-5219-4826-9f45-76c620478a53}</UniqueIdentifier>
+    <Filter Include="API\ExamClass\ShootingEffect">
+      <UniqueIdentifier>{e21da2b0-3546-453c-9be7-502611ab946f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\ExamClass\ShootingGame\Scenes">
+      <UniqueIdentifier>{b0fcb1a5-d134-4e45-950b-ad0f804d9a35}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

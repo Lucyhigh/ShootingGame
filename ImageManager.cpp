@@ -35,7 +35,7 @@ Image* ImageManager::addImage(string strKey, const char * fileName, int width, i
 {
 	Image* img = findImage(strKey);
 	if (img) return img;
-
+    
 	img = new Image;
 	if (FAILED(img->init(fileName, width, height, isTrans, transColor)))
 	{

@@ -1,22 +1,22 @@
 #pragma once
 #include "GameNode.h"
-#include "Rocket.h"
-#include "EnemyManager.h"
+#include "StartScene.h"
+#include "SecondScene.h"
 
-#include "Collision.h"
 class MainGame : public GameNode
 {
 private:
-	Rocket* _rocket;
-	EnemyManager* _em;
-	EffectManager* _efxm;
-	Collision* _collision;
+    StartScene* _start;
+    SecondScene* _second;
+    GameNode* _currentScene;
+
 public:
-	HRESULT init(void);
-	void release(void);
-	void update(void);
-	void render(void);
+    HRESULT init(void);
+    void release(void);
+    void update(void);
+    void render(void);
+
 public:
-	MainGame() {}
-	~MainGame() {}
+    MainGame() : _currentScene(nullptr) {}
+    ~MainGame() {}
 };

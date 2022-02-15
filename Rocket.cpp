@@ -1,12 +1,10 @@
 #include "Stdafx.h"
 #include "Rocket.h"
 
-
 HRESULT Rocket::init(void)
 {
-	_image = IMAGEMANAGER->addImage("로켓", "Resources/Images/Object/Rocket.bmp",
-		52, 62, true, RGB(255, 0, 255));
-
+	_image = IMAGEMANAGER->addImage("비행기", "Resources/Images/Object/AirCrafts-idle.bmp",
+        48, 44, true, RGB(255, 91, 175));
 	_x = CENTER_X;
 	_y = WINSIZE_Y-100;
 
@@ -30,7 +28,7 @@ HRESULT Rocket::init(void)
 	_hpBar = new ProgressBar;
 	_hpBar->init(_x,_y,52,4);
 	_beamIrradiation = false;
-
+    _islive = true;
 	return S_OK;
 }
 
@@ -91,6 +89,7 @@ void Rocket::update(void)
 		_y += ROCKET_SPEED;
 	}
 
+
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))//일반
 	{
 		_setWeapon = MISSILE;
@@ -146,15 +145,22 @@ void Rocket::update(void)
 void Rocket::render(void)
 {
 	_image->render(getMemDC(), _rc.left, _rc.top);
+
 	_flame->render();
 	_missile->render();
 	_shotgun->render();
 	_miniRocket->render();
 	_beam->render();
 	_hpBar->render();
+
 }
 
 void Rocket::removeMissile(int arrNum)
 {
 	_missile->removeBullet(arrNum);
+}
+
+bool Rocket::getStatus(void)
+{
+    return _islive;
 }

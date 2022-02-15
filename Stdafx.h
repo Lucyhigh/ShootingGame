@@ -75,8 +75,8 @@ using namespace MY_UTIL;
 //#define FULLSCREEN
 
 #ifdef FULLSCREEN
-#define WINSTART_X	 1920 // 모니터에 따라 다름 
-#define WINSTART_Y	 0
+#define WINSTART_X	 640 // 모니터에 따라 다름 
+#define WINSTART_Y	 1080
 // GetSystemMetrics 인자로 전달되는 시스템 설정 정보 현황
 // ㄴSM_CXSCREEN / SM_CYSCREEN :  현재 화면 해상도 X, Y축 반환 
 #define WINSIZE_X	 GetSystemMetrics(SM_CXSCREEN)
@@ -84,9 +84,9 @@ using namespace MY_UTIL;
 #define WINSTYLE	 WS_POPUPWINDOW | WS_MAXWIZE
 
 #else
-#define WINSTART_X	 200
+#define WINSTART_X	 450
 #define WINSTART_Y	 0
-#define WINSIZE_X	 1200
+#define WINSIZE_X	 640
 #define WINSIZE_Y	 800
 #define WINSTYLE	 WS_CAPTION | WS_SYSMENU
 #endif 

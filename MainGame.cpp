@@ -3,51 +3,44 @@
 
 HRESULT MainGame::init(void)
 {
-	GameNode::init(TRUE);
+    GameNode::init(TRUE);
+   
+    _start = new StartScene;
+    _start->init();
 
-	IMAGEMANAGER->addImage("½´ÆÃ ¸Ê", "Resources/Images/BackGround/ShootingBG.bmp", WINSIZE_X, WINSIZE_Y);
+    _second = new SecondScene;
+    _second->init();
+    _currentScene = _start;
+   // assert(_currentScene != nullptr);
 
-	_rocket = new Rocket;
-	_rocket->init();
-	_em = new EnemyManager;
-	_em->init();
-	_efxm = new EffectManager;
-	_efxm->init();
-	_collision = new Collision;
-	_collision->init(_rocket,_em,_efxm);
-	return S_OK;
+    return S_OK;
 }
 
 void MainGame::release(void)
 {
-	GameNode::release();
+    GameNode::release();
 
-	_rocket->release();
-	SAFE_DELETE(_rocket);
-	_em->release();
-	SAFE_DELETE(_em);
-	_efxm->release();
-	SAFE_DELETE(_efxm);	
+    SAFE_DELETE(_start);
+    SAFE_DELETE(_second);
 }
 
 void MainGame::update(void)
 {
-	GameNode::update();
-	_rocket->update();
-	_em->update();
-	_efxm->update();
-	_collision->update();
+    GameNode::update();
+
+    _currentScene->update();
+
+   if (KEYMANAGER->isOnceKeyDown(VK_SPACE)) _currentScene = _second;
+   if (KEYMANAGER->isOnceKeyDown('W') ) _currentScene = _start;
 }
 
 void MainGame::render(void)
 {
-	PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
+    PatBlt(getMemDC(), 0, 0, WINSIZE_X, WINSIZE_Y, BLACKNESS);
+ 
+    _currentScene->render();
+    TIMEMANAGER->render(getMemDC());
 
-	IMAGEMANAGER->render("½´ÆÃ ¸Ê", getMemDC());
-	TIMEMANAGER->render(getMemDC());
-	_rocket->render();
-	_em->render();
-	_efxm->render();
-	this->getBackBuffer()->render(getHDC());
+    this->getBackBuffer()->render(getHDC());
 }
 

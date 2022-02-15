@@ -1,8 +1,7 @@
 #pragma once
-
+class Animation;
 class Image
 {
-
 public:
 
 	// 자주 사용하는 API 자료형
@@ -120,6 +119,8 @@ public:
 	// 루프 렌더 
 	void loopRender(HDC hdc, const LPRECT dramArea, int offsetX, int offsetY);
 	void loopAlphaRender(HDC hdc, const LPRECT dramArea, int offsetX, int offsetY, BYTE alpha);
+    //애니메이션 렌더
+    void aniRender(HDC hdc, int destX, int destY, Animation* ani);
 
 
 
