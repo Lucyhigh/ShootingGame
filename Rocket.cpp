@@ -88,8 +88,7 @@ void Rocket::update(void)
 	{
 		_y += ROCKET_SPEED;
 	}
-
-
+	
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))//일반
 	{
 		_setWeapon = MISSILE;
@@ -103,10 +102,6 @@ void Rocket::update(void)
 		_setWeapon = MINIROCKET;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F4))//레이저
-	{
-		_setWeapon = BEAM;
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F5))//레이저2
 	{
 		_setWeapon = BEAM;
 	}
@@ -152,15 +147,25 @@ void Rocket::render(void)
 	_miniRocket->render();
 	_beam->render();
 	_hpBar->render();
-
 }
 
 void Rocket::removeMissile(int arrNum)
 {
-	_missile->removeBullet(arrNum);
+	switch (_setWeapon)
+	{
+	case MISSILE:
+		_missile->removeBullet(arrNum);
+		break;
+	case SHOT:
+		_shotgun->removeBullet(arrNum);
+		break;
+	case MINIROCKET:
+		_miniRocket->removeBullet(arrNum);
+		break;
+	}
 }
 
-bool Rocket::getStatus(void)
+bool Rocket::getLive(void)
 {
     return _islive;
 }

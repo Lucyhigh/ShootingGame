@@ -35,5 +35,4 @@ void StartScene::render(void)
     IMAGEMANAGER->alphaRender("타이틀", getMemDC(), _bgAlpha);
     IMAGEMANAGER->render("타이틀비행기", getMemDC());
     IMAGEMANAGER->alphaRender("시작버튼", getMemDC(),200, 730, _alpha);
-
 }

@@ -25,23 +25,43 @@ public:
     MissileEffect() {}
     ~MissileEffect() {}
 };
+class MiniRocketEffect : public GameNode
+{
+private:
+	vector<tagEffect> _vEffect;
+	vector<tagEffect>::iterator _viEffect;
+
+public:
+	HRESULT init(void);
+	void release(void);
+	void update(void);
+	void render(void);
+
+	void show(RECT rc);
+	void draw(void);
+	void removeEffect(int arrNum);
+
+	MiniRocketEffect() {}
+	~MiniRocketEffect() {}
+};
+
 class BeamEffect : public GameNode
 {
 private:
-    vector<tagEffect> _vEffect;
-    vector<tagEffect>::iterator _viEffect;
+	vector<tagEffect> _vEffect;
+	vector<tagEffect>::iterator _viEffect;
 
 public:
-    HRESULT init(void);
-    void release(void);
-    void update(void);
-    void render(void);
+	HRESULT init(void);
+	void release(void);
+	void update(void);
+	void render(void);
 
-    void show(RECT rc);
-    void draw(void);
-    void removeEffect(int arrNum);
+	void show(RECT rc);
+	void draw(void);
+	void removeEffect(int arrNum);
 
-    BeamEffect() {}
-    ~BeamEffect() {}
+	BeamEffect() {}
+	~BeamEffect() {}
 };
 

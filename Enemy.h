@@ -21,9 +21,9 @@ protected:
     float _worldTimeCount;
     int _currentFrameX;
     int _currentFrameY;
+
     float _currentHp;
     float _maxHp;
-
     float _rndFireCount;
     float _bulletFireCount;
     HRESULT init(const char* imageName, POINT position, float speed);

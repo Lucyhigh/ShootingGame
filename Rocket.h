@@ -53,7 +53,7 @@ public:
     POINT getPosition(void) { return PointMake((int)_x, (int)_y); }
     //로켓이 맞는지 알려줄 렉트
     RECT getRect(void) { return _rc; }
-    bool getStatus(void);
+    bool getLive(void);
     inline void hitDamage(float damage)
     {
         if (_currentHp <= 0)

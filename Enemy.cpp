@@ -30,6 +30,7 @@ HRESULT Enemy::init(const char * imageName, POINT position, float speed)
     _x = position.x;
     _y = position.y;
     _speed = speed;
+
     _minionHpBar = new ProgressBar;
     _minionHpBar->init(_x, _y, 52, 4);
     return S_OK;

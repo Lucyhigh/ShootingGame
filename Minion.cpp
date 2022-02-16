@@ -1,7 +1,8 @@
 #include "Stdafx.h"
 #include "Minion.h"
 
-Minion::Minion() {
+Minion::Minion():_speed(0),_reverse(1)
+{
 }
 
 Minion::~Minion() {
@@ -9,11 +10,14 @@ Minion::~Minion() {
 
 void Minion::move(void)
 {
-    _x -= _speed + RND->getInt(2);
-    _y += _speed + RND->getInt(2);
+
+    _y += RND->getInt(4)* _reverse;
+   _x -= RND->getInt(4) * _reverse;
+   
+    if (_x >= WINSIZE_X - 20 || _x <= 20) _reverse *= -1;
+    if (_y >= WINSIZE_X - 20 || _y <= 20) _reverse *= -1;
     _rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
 }
-
 
 void Minion2::move(void)
 {
@@ -29,4 +33,8 @@ void Minion3::move(void)
     _y = -sinf((_speed * 36 - 90)*  PI / 180) * 200 + WINSIZE_Y / 2;// +RND->getInt(200);
 
     _rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
+}
+
+void Minion4::move(void)
+{
 }

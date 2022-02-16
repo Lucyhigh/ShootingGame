@@ -13,10 +13,13 @@ private:
 
     AniTestScene* _aniTest;
     MissileEffect* _missileEffect;
+	MiniRocketEffect* _miniRocketEffect;
     BeamEffect* _beamEffect;
 
     float _upX, _upY;
     float _downX, _downY;
+	float _timer;
+	int _score;
     int _enemyAttCount;
 
 public:

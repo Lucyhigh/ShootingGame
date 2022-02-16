@@ -12,8 +12,11 @@ HRESULT Missile::init(int bulletMax, float range)
         ZeroMemory(&bullet, sizeof(tagBullet));
 
         bullet.img = new Image;
+       /* bullet.img->init("Resources/Images/Object/Missile2.bmp", 0.0f, 0.0f,
+            142, 16, 9, 1, true, RGB(255, 0, 255));*/
         bullet.img->init("Resources/Images/Object/Missile.bmp", 0.0f, 0.0f,
             416, 64, 13, 1, true, RGB(255, 0, 255));
+
         bullet.fire = false;
         bullet.speed = 5.0f;
         _vBullet.push_back(bullet);
@@ -141,7 +144,8 @@ void MissileM1::fire(float x, float y)
     ZeroMemory(&bullet, sizeof(tagBullet));
 
     bullet.img = new Image;
-    bullet.img->init("Resources/Images/Object/Missile.bmp", 0.0f, 0.0f, 416, 64, 13, 1, true, RGB(255, 0, 255));
+    bullet.img->init("Resources/Images/Object/Missile2.bmp", 0.0f, 0.0f,
+       26,15,2, 1, true, RGB(255, 0, 255));
 
     bullet.fire = false;
     bullet.speed = 4.0f;
@@ -296,8 +300,11 @@ void MissileM2::draw(void)
 
 void MissileM2::removeBullet(int arrNum)
 {
-    SAFE_DELETE(_vBullet[arrNum].img);
-    _vBullet.erase(_vBullet.begin() + arrNum);
+	if (0<= arrNum && arrNum < _vBullet.size())
+	{
+
+		_vBullet[arrNum].fire = false;
+	}
 }
 //============================================================================================mini
 HRESULT MissileM3::init(int bulletMax, float range)
@@ -392,8 +399,10 @@ void MissileM3::draw(void)
 }
 void MissileM3::removeBullet(int arrNum)
 {
-    SAFE_DELETE(_vBullet[arrNum].img);
-    _vBullet.erase(_vBullet.begin() + arrNum);
+	if (0 <= arrNum && arrNum < _vBullet.size())
+	{
+		_vBullet[arrNum].fire = false;
+	}
 }
 //============================================================================================
 
